@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPKD - Subkriteria</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        :root {
+            --primary-color: #800020; /* Primary color */
+            --secondary-color: #5e0b08; /* Secondary color */
+            --background-color: #f8f9fa; /* Background color */
+            --accent-color: #d7a29e;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--background-color);
+            min-height: 100vh;
+            display: flex;
+            margin: 0;
+        }
+
+        .sidebar {
+            width: 280px;
+            background-color: white;
+            padding: 1.5rem;
+            border-right: 1px solid #e9ecef;
+            height: 100vh;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.05);
+        }
+
+        .sidebar .header {
+            padding: 1rem 0;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .sidebar .header img {
+            width: 40px;
+            height: 40px;
+            margin-right: 0.75rem;
+        }
+
+        .main-content {
+            flex-grow: 1;
+            padding: 1.5rem; /* Adjust width to fill the remaining space */
+        }
+
+        .sidebar .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            margin: 0.25rem 0;
+            color: var(--primary-color);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .sidebar .nav-link:hover {
+            background-color: rgba(128, 0, 32, 0.05);
+            transform: translateX(4px);
+        }
+
+        .sidebar .nav-link.active {
+            background-color: rgba(128, 0, 32, 0.1);
+            font-weight: 500;
+        }
+
+        .sidebar .nav-link i {
+            width: 24px;
+            margin-right: 0.75rem;
+            font-size: 1.1rem;
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .form-section {
+            background-color: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="text-center mb-4">
+            <img src="assets/logo.png" alt="Logo SPKD" width="50">
+            <h4 class="mt-2">SPKD</h4>
+            <small>Sistem Penilaian Kinerja Dosen</small>
+        </div>
+        
+        <nav class="nav flex-column">
+            <a class="nav-link active" href="profil-upm.html">
+                <i class="bi bi-person-circle"></i> Profil
+            </a>
+            <a class="nav-link" href="halaman-upm.html">
+                <i class="bi bi-speedometer2"></i> Dashboard
+            </a>
+            <a class="nav-link" href="data-user.php">
+                <i class="bi bi-people"></i> User
+            </a>
+            <a class="nav-link" data-bs-toggle="collapse" href="#dataMaster" role="button" aria-expanded="false" aria-controls="dataMaster">
+                <i class="bi bi-file-earmark-text me-2"></i>Data Master
+            </a>
+            <div class="collapse" id="dataMaster">
+                <div class="nav flex-column ms-3">
+                    <a class="nav-link" href="kriteria.php">Kriteria</a>
+                    <a class="nav-link" href="sub-kriteria.html">Sub Kriteria</a>
+                    <a class="nav-link" href="fakultas.php">Fakultas</a>
+                    <a class="nav-link" href="program-studi.php">Program Studi</a>
+                </div>
+            </div>
+            <a class="nav-link" href="halaman-penilaian.html">
+                <i class="bi bi-clipboard-data"></i> Penilaian
+            </a>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <div class="form-group">
+                    <h4 class="mb-0">Sub-Kriteria</h4>
+                </div>
+                <div>
+                    <a href="logout.php" class="btn btn-danger btn-sm">
+                        <i class="bi bi-box-arrow-right"></i> Logout
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Content -->
+        <div class="container-fluid mt-4">
+            <div class="form-container mb-4">
+                <form action="backend/handle_subkriteria.php" method="POST">
+                    <label for="kode">Kode</label>
+                    <input type="text" id="subkriteria" name="kode" class="form-control mb-3" placeholder="Masukkan Kode" required>
+                    <label for="subkriteria">Kriteria</label>
+                    <input type="text" id="kriteria" name="subkriteria" class="form-control mb-3" placeholder="Masukkan Sub-Kriteria" required>
+                    <label for="jenis" class="mt-3">Kriteria</label>
+                    <select id="jenis" name="jenis" class="form-select mb-3" required>
+                        <option value="">Pilih Sub-Kriteria</option>
+                        <option value="Mahasiswa">PBM1</option>
+                        <option value="Dosen">PBM2</option>
+                    </select>
+                    <button type="submit" class="btn btn-success mt-2" aria-label="Simpan data">Simpan</button>
+                </form>
+            </div>
+
+            <div class="input-group mb-3" style="float: right; width: 250px;">
+                <input type="text" class="form-control" placeholder="Search..." aria-label="Search" style="height: 38px;">
+                <button class="btn btn-outline-secondary" type="button">Search</button>
+            </div>
+            
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Kode</th>
+                        <th>Sub Kriteria</th>
+                        <th>Kriteria</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>C1</td>
+                        <td>PBM</td>
+                        <td>xxx xxx xxx</td>
+                        <td class="actions">
+                            <button class="btn btn-warning edit">Edit</button>
+                            <button class="btn btn-danger delete">Hapus</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>C2</td>
+                        <td>PBM</td>
+                        <td>xxx xxx xxx</td>
+                        <td class="actions">
+                            <button class="btn btn-warning edit">Edit</button>
+                            <button class="btn btn-danger delete">Hapus</button>
+                        </td>
+                    </tr>
+                    <!-- Tambahkan data lainnya sesuai kebutuhan -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

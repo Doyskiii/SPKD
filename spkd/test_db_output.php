@@ -1,0 +1,1 @@
+Connection successful!<br>The 'users' table exists in the database.
